@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="project_tt_working" model="project.task.type">
+            <field name="sequence">3</field>
+            <field name="name">Working</field>
+            <field name="state">working</field>
+            <field name="case_default" eval="False"/>
+        </record>
+
+    </data>
+</openerp>
