@@ -23,7 +23,7 @@
 
 import time
 from datetime import datetime, date
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp import tools
 from tools.translate import _
 from osv import fields, osv
 import openerp.exceptions
@@ -106,7 +106,10 @@ class project_task(osv.osv):
 
     def work_start_btn(self,cr,uid,task_id,context):
 
-        start = datetime.strptime(datetime.now(), DEFAULT_SERVER_DATETIME_FORMAT)
+        timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        ts = fields.datetime.context_timestamp(cr, uid, timestamp, context)
+        start = ts.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
+
         user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
         if user_task_id:
             user_task = self.pool.get('time.control.user.task').browse(cr,uid,user_task_id)[0]
@@ -139,7 +142,10 @@ class project_task(osv.osv):
 
     def work_end_btn(self,cr,uid,task_id,context):
 
-        end_datetime = datetime.strptime(datetime.now(), DEFAULT_SERVER_DATETIME_FORMAT)
+        timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        ts = fields.datetime.context_timestamp(cr, uid, timestamp, context)
+        end_datetime = ts.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
+
         user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
         if user_task_id:
             user_task = self.pool.get('time.control.user.task').browse(cr,uid,user_task_id[0])
