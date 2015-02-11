@@ -24,6 +24,7 @@
 
 from osv import fields,osv
 import time
+from openerp import tools
 from datetime import datetime, date
 
 class task_time_control_confirm_wizard(osv.osv_memory):
@@ -44,8 +45,8 @@ class task_time_control_confirm_wizard(osv.osv_memory):
     def get_time(self, cr, uid,ids, context=None):
         user = self.getUserTask(cr,uid,ids,context)
         if user:
-            start_datetime = datetime.strptime(user.work_start, '%Y-%m-%d %H:%M:%S.%f')
-            end_datetime = datetime.strptime(user.work_end, '%Y-%m-%d %H:%M:%S.%f')
+            start_datetime = datetime.strptime(user.work_start, tools.DEFAULT_SERVER_DATETIME_FORMAT)
+            end_datetime = datetime.strptime(user.work_end, tools.DEFAULT_SERVER_DATETIME_FORMAT)
             end_seconds = time.mktime(end_datetime.timetuple())
             start_seconds = time.mktime(start_datetime.timetuple())
             diff_hours = (end_seconds - start_seconds)/60/60
@@ -69,11 +70,11 @@ class task_time_control_confirm_wizard(osv.osv_memory):
         wizard = self.browse(cr, uid, ids[0])
         user_task = wizard.user_task
         started_task = user_task.started_task
-        start_datetime = datetime.strptime(user_task.work_start, '%Y-%m-%d %H:%M:%S.%f')
-        end_datetime = datetime.strptime(user_task.work_end, '%Y-%m-%d %H:%M:%S.%f')
+        start_datetime = datetime.strptime(user_task.work_start, tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        end_datetime = datetime.strptime(user_task.work_end, tools.DEFAULT_SERVER_DATETIME_FORMAT)
         args = {
             'name': wizard.name ,
-            'date': end_datetime.strftime('%d-%m-%Y %H:%M:%S'),
+            'date': end_datetime.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT),
             'task_id': started_task.id,
             'hours': wizard.time,
             'user_id': uid,
