@@ -106,8 +106,8 @@ class project_task(osv.osv):
 
     def work_start_btn(self,cr,uid,task_id,context):
 
-        timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
-        ts = fields.datetime.context_timestamp(cr, uid, timestamp, context)
+        #timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        ts = fields.datetime.context_timestamp(cr, uid, datetime.now(), context)
         start = ts.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
 
         user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
@@ -142,8 +142,8 @@ class project_task(osv.osv):
 
     def work_end_btn(self,cr,uid,task_id,context):
 
-        timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
-        ts = fields.datetime.context_timestamp(cr, uid, timestamp, context)
+        #timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        ts = fields.datetime.context_timestamp(cr, uid, datetime.now(), context)
         end_datetime = ts.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
 
         user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
