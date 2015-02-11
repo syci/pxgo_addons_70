@@ -108,7 +108,7 @@ class project_task(osv.osv):
 
         #timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
         ts = fields.datetime.context_timestamp(cr, uid, datetime.now(), context)
-        start = ts.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        start = ts.strftime('%Y-%m-%d %H:%M:%S.%f')
 
         user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
         if user_task_id:
@@ -144,7 +144,7 @@ class project_task(osv.osv):
 
         #timestamp = datetime.strptime(datetime.now(), tools.DEFAULT_SERVER_DATETIME_FORMAT)
         ts = fields.datetime.context_timestamp(cr, uid, datetime.now(), context)
-        end_datetime = ts.strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        end_datetime = ts.strftime('%Y-%m-%d %H:%M:%S.%f')
 
         user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
         if user_task_id:
